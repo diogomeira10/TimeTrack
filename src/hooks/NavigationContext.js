@@ -1,8 +1,8 @@
-import {useContext} from 'react';
-import NavigationContext from '../context/navigation';
+import { useContext } from "react";
+import NavigationContext from "../context/navigation";
 
-function useNavigationContext () {
-    return useContext(NavigationContext)
-};
+function useNavigationContext() {
+  return useContext(NavigationContext);
+}
 
-export default useNavigationContext ;
+export default useNavigationContext;

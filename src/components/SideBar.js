@@ -4,27 +4,28 @@ function SideBar () {
 
     const links = [
         {label:'Profile', path:'/profile'},
-        {label: 'Artists', path: '/'}, 
+        {label: 'Artists', path: '/artists'}, 
         {label: 'Tracks', path: "/tracks"},
     ] 
 
     const renderedLinks = links.map((link) => {   
         return <Link 
-                activeClassName='font-bold border-l-4 border-orange-500 pl-2' 
-                className="mb-3" 
+                activeClassName='font-bold border-b-2 border-orange-500 pl-2' 
+                className="mb-3 mt-3" 
                 key={link.label} 
                 to={link.path}
                 >
-                
                         {link.label}
-                 
                 </Link>
     }) 
 
     return (
-        <div className='fixed bottom-10 left-0 right-0 mt-6 flex justify-around border border-black h-8'>
+        <div className="">
+            <div className='bg-slate-300 rounded font-bold fixed bottom-5 left-6 right-6 mt-6 flex justify-around align-middle h-12'>
             {renderedLinks}
         </div>
+        </div>
+        
     )
 
 };
