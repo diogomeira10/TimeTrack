@@ -37,19 +37,8 @@ function App() {
         </Route>
         <Route path="/artists">
           <ArtistsPage />
-        </Route>
-      </div>
-      
-      <Route path="/eversincetracks">
-        <EverSinceTracks />
-      </Route>
-      <Route path="/last4weekstracks">
-        <Weeks4Tracks />
-      </Route>
-      <Route path="/last6monthstracks">
-        <Months6Tracks />
-      </Route>
-      <Route path="/lastyeartracks">
+        </Route> 
+        <Route path="/lastyeartracks">
         <LastYearTracks />
       </Route>
       <Route path="/eversinceartists">
@@ -64,6 +53,16 @@ function App() {
       <Route path="/lastyearartists">
         <LastYearArtists />
       </Route>
+        <Route path="/eversincetracks">
+        <EverSinceTracks />
+      </Route>
+      <Route path="/last4weekstracks">
+        <Weeks4Tracks />
+      </Route>
+      <Route path="/last6monthstracks">
+        <Months6Tracks />
+      </Route>
+      </div>     
     </div>
   );
 }
