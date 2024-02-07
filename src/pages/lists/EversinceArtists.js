@@ -1,5 +1,11 @@
+import SubSideBarArtists from "../../components/SubSideBarArtists"
+ 
 function EverSinceArtists () {
-   return <div>EverSincfasdfasdfasdfasdfasdfasfdsadfeArtists</div>
+   return <div>
+     <SubSideBarArtists/>
+      <div EverSincfasdfasdfasdfasdfasdfasfdsadfeArtists>
+      </div>
+     </div>
 }
 
 export default EverSinceArtists

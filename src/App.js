@@ -4,7 +4,6 @@ import ArtistsPage from "./pages/ArtistsPage";
 import TracksPage from "./pages/TracksPage";
 import ProfilePage from "./pages/ProfilePage";
 import logo from "./images/logo.png";
-import EverSinceArtists from "./pages/lists/EversinceArtists";
 import EverSinceTracks from "./pages/lists/EversinceTracks";
 import LastYearArtists from "./pages/lists/LastYearArtists";
 import LastYearTracks from "./pages/lists/LastYearTracks";
@@ -38,32 +37,32 @@ function App() {
         <Route path="/artists">
           <ArtistsPage />
         </Route>
+
+        <Route path="/eversincetracks">
+          <EverSinceTracks />
+        </Route>
+        <Route path="/last4weekstracks">
+          <Weeks4Tracks />
+        </Route>
+        <Route path="/last6monthstracks">
+          <Months6Tracks />
+        </Route>
+        <Route path="/lastyeartracks">
+          <LastYearTracks />
+        </Route>
+        <Route path="/eversinceartists">
+          <ArtistsPage />
+        </Route>
+        <Route path="/last4weeksartists">
+          <Weeks4Artists />
+        </Route>
+        <Route path="/last6monthsartists">
+          <Months6Artists />
+        </Route>
+        <Route path="/lastyearartists">
+          <LastYearArtists />
+        </Route>
       </div>
-      
-      <Route path="/eversincetracks">
-        <EverSinceTracks />
-      </Route>
-      <Route path="/last4weekstracks">
-        <Weeks4Tracks />
-      </Route>
-      <Route path="/last6monthstracks">
-        <Months6Tracks />
-      </Route>
-      <Route path="/lastyeartracks">
-        <LastYearTracks />
-      </Route>
-      <Route path="/eversinceartists">
-        <EverSinceArtists />
-      </Route>
-      <Route path="/last4weeksartists">
-        <Weeks4Artists />
-      </Route>
-      <Route path="/last6monthsartists">
-        <Months6Artists />
-      </Route>
-      <Route path="/lastyearartists">
-        <LastYearArtists />
-      </Route>
     </div>
   );
 }

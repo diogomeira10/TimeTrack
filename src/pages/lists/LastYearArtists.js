@@ -1,5 +1,7 @@
+import SubSideBarArtists from "../../components/SubSideBarArtists"
+
 function LastYearArtists () {
-return  <div>Last Year Artists</div>
+return  <div> <SubSideBarArtists/>Last Year Artists</div>
 
 }
 
