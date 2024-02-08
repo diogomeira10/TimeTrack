@@ -10,22 +10,31 @@ import { calculatePercentageOfPlays } from "../functions/functions";
 import { getPositionInTop100 } from "../functions/functions";
 import { getTopSongsByArtist } from "../functions/functions";
 import { MiniSongCard } from "../components/cards/MiniSongCard";
+import { useEffect } from "react";
 
+const INITIAL_TIME_FRAME = "Always";
 
 function ArtistsPage(params) {
   const [artistList, setList] = useState(calculateTopArtists());
+  const [songList, setSongList] = useState();
   const [selectedArtist, setSelected] = useState();
+  const [timeRangeSelection, setSelection] = useState(INITIAL_TIME_FRAME);
+  const totalMinutes = countPlaysForArtist(selectedArtist);
+  const totalRecords = countRecordsListenedByArtist(selectedArtist);
+  const percentage = calculatePercentageOfPlays(selectedArtist);
+  const position = getPositionInTop100(selectedArtist);
+  const season = getMostListenedSeasonForArtist(selectedArtist);
 
-  const totalMinutes = countPlaysForArtist(selectedArtist)
-  const totalRecords = countRecordsListenedByArtist(selectedArtist)
-  const percentage = calculatePercentageOfPlays(selectedArtist)
-  const position = getPositionInTop100(selectedArtist)
-  const season = getMostListenedSeasonForArtist(selectedArtist)
-  const list = getTopSongsByArtist(selectedArtist)
+  useEffect(() => {
+    if(selectedArtist === undefined) return
+    setSongList(getTopSongsByArtist(selectedArtist, timeRangeSelection));
+  }, [selectedArtist, timeRangeSelection])
 
-  const renderedList = list.map((element,i) => {
-        return <MiniSongCard position={i + 1} name={element[0]} time={Math.round(element[1])}/>
-})
+  // const getTopArtistSongs = (period) => {
+  //   setList(getTopSongsByArtist(selectedArtist, period));
+  // };
+
+
 
   const renderedArtistsList = artistList.map((element, i) => {
     return (
@@ -39,17 +48,29 @@ function ArtistsPage(params) {
   });
 
   return (
-    <div>
-      {!selectedArtist ? (
+    <div className="mb-20">
+      {!selectedArtist || !songList ? (
         <>
           {renderedArtistsList}
           <SubSideBarArtists />
-          <div className="text-white">
-            <ArtistCard />
-          </div>
+          <div className="text-white"></div>
         </>
       ) : (
-        <><ArtistPage list={renderedList} season={season} streamPercentage={percentage} totalRecords={totalRecords} totalMinutes={totalMinutes} onBack={() => setSelected(undefined)} artistName={selectedArtist} positionTop={position}/></>
+        <>
+          <ArtistPage
+            setSelection={setSelection}
+            selection={timeRangeSelection}
+            list={songList}
+            season={season}
+            streamPercentage={percentage}
+            totalRecords={totalRecords}
+            totalMinutes={totalMinutes}
+            onBack={() => setSelected(undefined)}
+            // onPeriodSelect={(period) => }
+            artistName={selectedArtist}
+            positionTop={position}
+          />
+        </>
       )}
     </div>
   );

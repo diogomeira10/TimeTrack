@@ -21,7 +21,7 @@ function SubSideBarArtists(params) {
     );
   });
   return (
-    <div className="bg-slate-100 pt-3 align-middle text-sm fixed top-20 left-0 right-0 mt-6 flex justify-around h-12">
+    <div className="bg-transparent pt-3 align-middle text-sm fixed top-20 left-0 right-0 mt-6 flex justify-around h-12">
       {renderedLinks}
     </div>
   );

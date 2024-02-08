@@ -436,9 +436,11 @@ export function getPositionInTop100(artistName) {
 
 
 
-export function getTopSongsByArtist(artistName) {
+export function getTopSongsByArtist(artistName, period) {
   const artistSongs = {};
-
+  console.log(`A encontrar top 20 musicas do artista ${artistName} nos ultimos ${period}`)
+  //Filtrar para manter as plays que foram tocadas depois de "period"
+  // let realHistory = history.filter()
   const artistHistory = history.filter(entry => entry.master_metadata_album_artist_name === artistName);
 
   artistHistory.forEach(entry => {

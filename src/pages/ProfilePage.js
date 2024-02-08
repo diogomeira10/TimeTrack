@@ -32,7 +32,7 @@ function ProfilePage(params) {
       <div className="flex items-center justify-center gap-4">
         <InfoCard titulo="Season of the year" valor={maxSeason}/>
         <InfoCard titulo="Time of the day" valor={horaMaisOuve()}/>
-        <InfoCard titulo="Media de tempo diária" valor={calculateDailyAverageListeningTime()} />
+        <InfoCard titulo="Average time per day" valor={calculateDailyAverageListeningTime() + "m"} />
       </div>
     </div>
   );
