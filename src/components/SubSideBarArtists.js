@@ -12,7 +12,7 @@ function SubSideBarArtists(params) {
     return (
       <Link
         activeClassName="font-bold border-b-2 border-orange-500 pl-2"
-        className="mb-20"
+        className="mb-20 font-bold"
         key={link.label}
         to={link.path}
       >

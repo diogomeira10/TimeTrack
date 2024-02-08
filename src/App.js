@@ -31,7 +31,7 @@ function App() {
       <div>
         <Route path="/profile">
           {/* <ProfilePage /> */}
-          <ArtistPage />
+          <ProfilePage />
         </Route>
         <Route path="/tracks">
           <TracksPage />
