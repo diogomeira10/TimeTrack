@@ -3,6 +3,7 @@ import Route from "./components/Route";
 import ArtistsPage from "./pages/ArtistsPage";
 import TracksPage from "./pages/TracksPage";
 import ProfilePage from "./pages/ProfilePage";
+import { ArtistPage } from "./pages/ArtistPage";
 import logo from "./images/logo.png";
 import EverSinceTracks from "./pages/lists/EversinceTracks";
 import LastYearArtists from "./pages/lists/LastYearArtists";
@@ -29,7 +30,8 @@ function App() {
       <SideBar />
       <div>
         <Route path="/profile">
-          <ProfilePage />
+          {/* <ProfilePage /> */}
+          <ArtistPage />
         </Route>
         <Route path="/tracks">
           <TracksPage />

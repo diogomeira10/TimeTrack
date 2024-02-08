@@ -157,51 +157,196 @@ export function calculateTopArtists() {
 
 //TRACKS LISTS
 
-export function calculateTopTracks(jsonData) {
-    // Initialize an object to store the total minutes played for each track
-    const trackMinutes = {};
 
-    // Calculate total minutes played for each track
-    history.forEach(item => {
-        const trackName = item.master_metadata_track_name;
-        if (!trackMinutes[trackName]) {
-            trackMinutes[trackName] = 0;
-        }
-        trackMinutes[trackName] += item.ms_played / (1000 * 60); // Convert milliseconds to minutes
-    });
+export function getTopTracks(jsonData) {
+  const tracks = {};
 
-    // Convert the object into an array of [track, minutes] pairs
-    const trackMinutesArray = Object.entries(trackMinutes);
+  history.forEach(entry => {
+      const trackName = entry.master_metadata_track_name;
+      if(!trackName) return 
+      const msPlayed = entry.ms_played;
+      const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+      if (tracks.hasOwnProperty(trackName)) {
+          tracks[trackName] += minutesPlayed;
+      } else {
+          tracks[trackName] = minutesPlayed;
+      }
+  });
 
-    // Sort the array based on the number of minutes played in descending order
-    trackMinutesArray.sort((a, b) => b[1] - a[1]);
+  const tracksArray = Object.entries(tracks);
 
-    // Return the top 100 tracks
-    return trackMinutesArray.slice(0, 100);
+ 
+  tracksArray.sort((a, b) => b[1] - a[1]);
+
+  const top100Tracks = tracksArray.slice(0, 100);
+
+  return top100Tracks;
+}
+
+export function getTopTracksLast4Weeks(jsonData) {
+  const tracks = {};
+
+  history.forEach(entry => {
+    const trackName = entry.master_metadata_track_name;
+    if(!trackName) return 
+    const msPlayed = entry.ms_played;
+    const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+    const entryDate = new Date(entry.ts);
+    const fourWeeksAgo = new Date();
+    fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28); // Get date 4 weeks ago
+
+    if (entryDate >= fourWeeksAgo) {
+      if (tracks.hasOwnProperty(trackName)) {
+        tracks[trackName] += minutesPlayed;
+      } else {
+        tracks[trackName] = minutesPlayed;
+      }
+    }
+  });
+
+  const tracksArray = Object.entries(tracks);
+  tracksArray.sort((a, b) => b[1] - a[1]);
+
+  return tracksArray.slice(0, 100);
+}
+
+export function getTopTracksLast6Months(jsonData) {
+  const tracks = {};
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6); // Get date 6 months ago
+
+  history.forEach(entry => {
+    const trackName = entry.master_metadata_track_name;
+    if(!trackName) return 
+    const msPlayed = entry.ms_played;
+    const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+    const entryDate = new Date(entry.ts);
+
+    if (entryDate >= sixMonthsAgo) {
+      if (tracks.hasOwnProperty(trackName)) {
+        tracks[trackName] += minutesPlayed;
+      } else {
+        tracks[trackName] = minutesPlayed;
+      }
+    }
+  });
+
+  const tracksArray = Object.entries(tracks);
+  tracksArray.sort((a, b) => b[1] - a[1]);
+
+  return tracksArray.slice(0, 100);
+}
+
+export function getTopTracksLastYear(jsonData) {
+  const tracks = {};
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1); // Get date 1 year ago
+
+  history.forEach(entry => {
+    const trackName = entry.master_metadata_track_name;
+    if(!trackName) return 
+    const msPlayed = entry.ms_played;
+    const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+    const entryDate = new Date(entry.ts);
+
+    if (entryDate >= oneYearAgo) {
+      if (tracks.hasOwnProperty(trackName)) {
+        tracks[trackName] += minutesPlayed;
+      } else {
+        tracks[trackName] = minutesPlayed;
+      }
+    }
+  });
+
+  const tracksArray = Object.entries(tracks);
+  tracksArray.sort((a, b) => b[1] - a[1]);
+
+  return tracksArray.slice(0, 100);
 }
 
 
+export function getTopArtistsLast4Weeks(jsonData) {
+  const artists = {};
 
+  history.forEach(entry => {
+    const artistName = entry.master_metadata_album_artist_name;
+    if(!artistName) return
+    const msPlayed = entry.ms_played;
+    const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+    const entryDate = new Date(entry.ts);
+    const fourWeeksAgo = new Date();
+    fourWeeksAgo.setDate(fourWeeksAgo.getDate() - 28); // Get date 4 weeks ago
 
-/* //13- [D] Ver uma lista com top 20 músicas ordenadas por millisegundos em plays.(artista)
-function topMusicaPorArtista(array, artista) {
-    let musicaPorArtista = []
-  
-    for (let i = 0; i < array.length; i++) {
-      const artistaNome = array[i].master_metadata_album_artist_name
-      if (artista !== artistaNome) continue
-      const musica = array[i].master_metadata_track_name
-      const tempoPlays = array[i].ms_played
-  
-      if (!musicaPorArtista.some(e => e.musica === musica)) {
-        musicaPorArtista.push({ musica: musica, tempo: 0 })
+    if (entryDate >= fourWeeksAgo) {
+      if (artists.hasOwnProperty(artistName)) {
+        artists[artistName] += minutesPlayed;
+      } else {
+        artists[artistName] = minutesPlayed;
       }
-  
-      musicaPorArtista = musicaPorArtista.map(e => e.musica === musica ? ({ ...e, tempo: e.tempo + tempoPlays }) : e)
     }
-    //console.log(musicaPorArtista)
-    const topMusicaArtista = musicaPorArtista.sort((a, b) => b.tempo - a.tempo)
-    return topMusicaArtista
-  }
-  //console.log(topMusicaPorArtista(array, "A$AP Rocky")) VVV
- */
+  });
+
+  const artistsArray = Object.entries(artists);
+  artistsArray.sort((a, b) => b[1] - a[1]);
+
+  return artistsArray.slice(0, 100);
+}
+
+export function getTopArtistsLast6Months(jsonData) {
+  const artists = {};
+  const sixMonthsAgo = new Date();
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6); // Get date 6 months ago
+
+  history.forEach(entry => {
+    const artistName = entry.master_metadata_album_artist_name;
+    if(!artistName) return
+    const msPlayed = entry.ms_played;
+    const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+    const entryDate = new Date(entry.ts);
+
+    if (entryDate >= sixMonthsAgo) {
+      if (artists.hasOwnProperty(artistName)) {
+        artists[artistName] += minutesPlayed;
+      } else {
+        artists[artistName] = minutesPlayed;
+      }
+    }
+  });
+
+  const artistsArray = Object.entries(artists);
+  artistsArray.sort((a, b) => b[1] - a[1]);
+
+  return artistsArray.slice(0, 100);
+}
+
+export function getTopArtistsLastYear(jsonData) {
+  const artists = {};
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1); // Get date 1 year ago
+
+  history.forEach(entry => {
+    const artistName = entry.master_metadata_album_artist_name;
+    if(!artistName) return
+    const msPlayed = entry.ms_played;
+    const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
+    const entryDate = new Date(entry.ts);
+
+    if (entryDate >= oneYearAgo) {
+      if (artists.hasOwnProperty(artistName)) {
+        artists[artistName] += minutesPlayed;
+      } else {
+        artists[artistName] = minutesPlayed;
+      }
+    }
+  });
+
+  const artistsArray = Object.entries(artists);
+  artistsArray.sort((a, b) => b[1] - a[1]);
+
+  return artistsArray.slice(0, 100);
+}
+
+
+//Estatisticas de um artista
+
+
