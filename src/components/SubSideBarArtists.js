@@ -1,4 +1,10 @@
+import {useState} from "react"
+
 function SubSideBarArtists({setPageTimeRange}) {
+
+
+  const [selectedLabel, setSelectedLabel] = useState(null);
+
   const links = [
     { label: "Ever Since", path: "/eversinceartists" },
     { label: "Last 4 Weeks", path: "/last4weeksartists" },
@@ -7,11 +13,14 @@ function SubSideBarArtists({setPageTimeRange}) {
   ];
 
   const renderedLinks = links.map((link) => {
+    const isSelected = selectedLabel === link.label;
     return (
       <div
-        onClick={() => setPageTimeRange(link.label)}
-        activeClassName="font-bold border-b-2 border-orange-500"
-        className="font-bold h-4 text-orange-500"
+        onClick={() => {
+          setPageTimeRange(link.label);
+          setSelectedLabel(link.label);
+        }}
+        className={`font-bold h-4 text-orange-500 text-xs ${isSelected ? 'font-bold border-b-2 border-orange-500' : ''}`}
         key={link.label}
         to={link.path}
       >
