@@ -350,15 +350,15 @@ export function getTopArtistsLastYear(jsonData) {
 
 
 export function countPlaysForArtist(artistName) {
-  let totalPlays = 0;
+  let totalMinutes = 0;
 
   history.forEach(entry => {
-      if (entry.master_metadata_album_artist_name === artistName) {
-          totalPlays += entry.ms_played / 1000;
-      }
+    if (entry.master_metadata_album_artist_name === artistName) {
+      totalMinutes += entry.ms_played / (1000 * 60); // Convert milliseconds to minutes
+    }
   });
 
-  return totalPlays;
+  return totalMinutes;
 }
 
 
@@ -436,79 +436,57 @@ export function getPositionInTop100(artistName) {
 
 
 
-export function getTopSongsByArtist(artistName, period) {
+export function getTopSongsByArtist(artistName, timeFrame = "Always") {
   const artistSongs = {};
-  console.log(`A encontrar top 20 musicas do artista ${artistName} nos ultimos ${period}`)
-  //Filtrar para manter as plays que foram tocadas depois de "period"
-  // let realHistory = history.filter()
-  const artistHistory = history.filter(entry => entry.master_metadata_album_artist_name === artistName);
+  let filterDate;
 
-  artistHistory.forEach(entry => {
-      const songName = entry.master_metadata_track_name;
-      if (songName) {
-          const msPlayed = entry.ms_played || 0;
-          const minutesPlayed = msPlayed / (1000 * 60); // Convert milliseconds to minutes
-          if (artistSongs.hasOwnProperty(songName)) {
-              artistSongs[songName] += minutesPlayed;
-          } else {
-              artistSongs[songName] = minutesPlayed;
-          }
+  if (timeFrame !== "Always") {
+    const currentDate = new Date();
+    switch (timeFrame) {
+      case "4 weeks":
+        filterDate = new Date(currentDate.getTime() - 4 * 7 * 24 * 60 * 60 * 1000);
+        break;
+      case "6 months":
+        filterDate = new Date(currentDate.getTime() - 6 * 30 * 24 * 60 * 60 * 1000);
+        break;
+      case "last year":
+        filterDate = new Date(currentDate.getTime() - 365 * 24 * 60 * 60 * 1000);
+        break;
+      default:
+        filterDate = new Date(0); 
+        break;
+    }
+  } else {
+  
+    filterDate = new Date(0); 
+  }
+
+
+  const filteredHistory = history.filter(entry =>
+    entry.master_metadata_album_artist_name === artistName &&
+    (timeFrame === "Always" || new Date(entry.ts) > filterDate)
+  );
+    console.log(filteredHistory)
+
+  filteredHistory.forEach(entry => {
+    const songName = entry.master_metadata_track_name;
+    if (songName) {
+      const msPlayed = entry.ms_played || 0;
+      const minutesPlayed = msPlayed / (1000 * 60); 
+      if (artistSongs.hasOwnProperty(songName)) {
+        artistSongs[songName] += minutesPlayed;
+      } else {
+        artistSongs[songName] = minutesPlayed;
       }
+    }
   });
 
-  const artistSongsArray = Object.entries(artistSongs);
+ 
+  const artistSongsArray = Object.entries(artistSongs)
+    .sort((a, b) => b[1] - a[1]);
 
-  artistSongsArray.sort((a, b) => b[1] - a[1]);
-
-  
   return artistSongsArray.slice(0, 20);
 }
 
 
 
-
-
-
-
-
-/* function getSeason(timestamp) {
-  const month = new Date(timestamp).getMonth() + 1; // Adding 1 to get month from 1 to 12
-  if (month >= 3 && month <= 5) {
-      return "Spring";
-  } else if (month >= 6 && month <= 8) {
-      return "Summer";
-  } else if (month >= 9 && month <= 11) {
-      return "Autumn";
-  } else {
-      return "Winter";
-  }
-}
- */
-/* export function mostListenedSeasonForArtist(artistName) {
-
-  const playsBySeason = {
-      Spring: 0,
-      Summer: 0,
-      Autumn: 0,
-      Winter: 0
-  };
-
-  history.forEach(entry => {
-      if (entry.master_metadata_album_artist_name === artistName) {
-          const season = getSeason(entry.ts);
-          playsBySeason[season]++;
-      }
-  });
-
-  let mostListenedSeason = null;
-  let maxPlays = 0;
-
-  for (const season in playsBySeason) {
-      if (playsBySeason[season] > maxPlays) {
-          maxPlays = playsBySeason[season];
-          mostListenedSeason = season;
-      }
-  }
-
-  return mostListenedSeason;
-} */

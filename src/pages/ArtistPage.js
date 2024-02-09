@@ -1,8 +1,9 @@
 import { InfoCard } from "../components/cards/InfoCard";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { useState } from "react";
 import { DropDown } from "../components/Dropdown";
 import { MiniSongCard } from "../components/cards/MiniSongCard";
+import { useState, useEffect } from "react";
+import { getTopSongsByArtist } from "../functions/functions";
 
 export function ArtistPage({
   artistName,
@@ -16,15 +17,40 @@ export function ArtistPage({
   selection,
   setSelection,
 }) {
-  const renderedList = list.map((element, i) => {
-    return (
-      <MiniSongCard
-        position={i + 1}
-        name={element[0]}
-        time={Math.round(element[1])}
-      />
-    );
-  });
+  const [listToRender, setListToRender] = useState(list);
+
+  useEffect(() => {
+    let newList = list
+    switch (selection) {
+      case "Always":
+        newList = list;
+        break;
+      case "4 weeks":
+        newList = getTopSongsByArtist(artistName, "4 weeks");
+        break;
+      case "6 months":
+        newList = getTopSongsByArtist(artistName, "6 months");
+        break;
+      case "last year":
+        newList = getTopSongsByArtist(artistName, "last year");
+        break;
+      default:
+        break;
+    }
+
+
+    setListToRender(newList)
+
+  }, [selection, artistName, list]);
+
+  const renderedList = listToRender.map((element, i) => (
+    <MiniSongCard
+      key={i}
+      position={i + 1}
+      name={element[0]}
+      time={Math.round(element[1])}
+    />
+  ));
 
   const handleSelect = (option) => {
     setSelection(option);

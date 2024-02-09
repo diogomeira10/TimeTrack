@@ -9,8 +9,8 @@ import { getMostListenedSeasonForArtist } from "../functions/functions";
 import { calculatePercentageOfPlays } from "../functions/functions";
 import { getPositionInTop100 } from "../functions/functions";
 import { getTopSongsByArtist } from "../functions/functions";
-import { MiniSongCard } from "../components/cards/MiniSongCard";
 import { useEffect } from "react";
+
 
 const INITIAL_TIME_FRAME = "Always";
 
