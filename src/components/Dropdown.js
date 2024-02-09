@@ -38,11 +38,11 @@ export function DropDown({ options, value, onChange }) {
 
     return (
         <div ref={divEl} className='relative font-semibold'>
-            <div className='flex justify-between items-center cursor-pointer' onClick={handleClick}>
+            <div className='flex justify-between p-2 bg-orange-700 text-white rounded-md items-center cursor-pointer' onClick={handleClick}>
                 {value ? value : "Select..." }
-                <span className='text-lg'>{isOpen ? <GoChevronLeft /> : <GoChevronDown />}</span>
+                <span className='text-xl'>{isOpen ? <GoChevronLeft /> : <GoChevronDown />}</span>
             </div>
-            {isOpen && <div className='absolute top-full'>{renderedOptions}</div>}
+            {isOpen && <div className='bg-orange-700 mt-2 text-white rounded-md absolute text-sm top-full'>{renderedOptions}</div>}
         </div>
     );
 }

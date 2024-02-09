@@ -3,7 +3,6 @@ import Route from "./components/Route";
 import ArtistsPage from "./pages/ArtistsPage";
 import TracksPage from "./pages/TracksPage";
 import ProfilePage from "./pages/ProfilePage";
-import logo from "./images/logo.png";
 import EverSinceTracks from "./pages/lists/EversinceTracks";
 import LastYearArtists from "./pages/lists/LastYearArtists";
 import LastYearTracks from "./pages/lists/LastYearTracks";
@@ -12,20 +11,21 @@ import Months6Tracks from "./pages/lists/Months6Tracks";
 import Weeks4Artists from "./pages/lists/Weeks4Artists";
 import Weeks4Tracks from "./pages/lists/Weeks4Tracks";
 
+
 function App() {
   return (
     <div className="App">
-      <div className="flex justify-between mb-16">
+      <div className="flex h-48 w-80 justify-between">
         <p
           style={{ fontFamily: "Montserrat Alternates, sans-serif" }}
-          className="text-white font-bold text-3xl mt-12 ml-12"
-        >
-          <span className="text-gray-300">Time</span>
-          <span className="text-orange-500">Track</span>
-        </p>
-        <img className="mr-4 mt-4" src={logo} alt="logo" />
+          className="text-white font-bold text-3xl mt-20 mb-1 ml-8">
+          <div>
+            <span className="text-gray-500">Time</span>
+            <span className="text-orange-500">Track</span>
+          </div>  
+        </p>        
       </div>
-
+      
       <SideBar />
       <div>
         <Route path="/profile">
@@ -53,7 +53,7 @@ function App() {
         <Route path="/eversinceartists">
           <ArtistsPage />
         </Route>
-        <Route path="/last4weeksartists">
+        {/* <Route path="/last4weeksartists">
           <Weeks4Artists />
         </Route>
         <Route path="/last6monthsartists">
@@ -61,7 +61,7 @@ function App() {
         </Route>
         <Route path="/lastyearartists">
           <LastYearArtists />
-        </Route>
+        </Route> */}
       </div>
     </div>
   );

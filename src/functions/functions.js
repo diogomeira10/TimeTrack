@@ -128,10 +128,8 @@ export function horaMaisOuve() {
 //Lista de artistas mais ouvidos
 
 export function calculateTopArtists() {
-    // Initialize an object to store the total plays for each artist
     const artistPlays = {};
 
-    // Calculate total plays for each artist
     history.forEach(item => {
         const artist = item.master_metadata_album_artist_name;
         if (!artistPlays[artist]) {
@@ -140,13 +138,11 @@ export function calculateTopArtists() {
         artistPlays[artist]++;
     });
 
-    // Convert the object into an array of [artist, plays] pairs
     const artistPlaysArray = Object.entries(artistPlays);
 
-    // Sort the array based on the number of plays in descending order
     artistPlaysArray.sort((a, b) => b[1] - a[1]);
 
-    // Return the top 100 artists
+    
     return artistPlaysArray.slice(0, 100);
 }
 
@@ -488,5 +484,12 @@ export function getTopSongsByArtist(artistName, timeFrame = "Always") {
   return artistSongsArray.slice(0, 20);
 }
 
-
+export function musicasDiferentesArtista(artista) {
+  const arrArtista = history.filter((e) => e.master_metadata_album_artist_name === artista);
+  const trackNames = arrArtista.map(e => {
+      return e.master_metadata_track_name;
+  });
+  const uniqueSongs = new Set(trackNames);
+  return uniqueSongs.size;
+}
 

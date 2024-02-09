@@ -11,8 +11,8 @@ function SubSideBarTracks(params) {
 
     const renderedLinks = links.map((link) => {   
         return <Link 
-                activeClassName='font-bold border-b-2 border-orange-500 pl-2' 
-                className="mb-20 font-bold" 
+                activeClassName='font-bold border-b-2 border-orange-500' 
+                className="font-bold h-4" 
                 key={link.label} 
                 to={link.path}
                 >
@@ -20,7 +20,7 @@ function SubSideBarTracks(params) {
                 </Link>
     }) 
     return (
-        <div className='bg-transparent pt-3 align-middle text-sm fixed top-20 left-0 right-0 mt-6 flex justify-around h-12'>
+        <div className='bg-transparent pt-3 align-middle text-xs fixed top-20 left-0 right-0 my-14 mx-4 flex justify-around h-12'>
             {renderedLinks}
         </div>
     )

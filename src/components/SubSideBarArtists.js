@@ -1,6 +1,4 @@
-import Link from "./Links";
-
-function SubSideBarArtists(params) {
+function SubSideBarArtists({setPageTimeRange}) {
   const links = [
     { label: "Ever Since", path: "/eversinceartists" },
     { label: "Last 4 Weeks", path: "/last4weeksartists" },
@@ -10,18 +8,19 @@ function SubSideBarArtists(params) {
 
   const renderedLinks = links.map((link) => {
     return (
-      <Link
-        activeClassName="font-bold border-b-2 border-orange-500 pl-2"
-        className="mb-20 font-bold"
+      <div
+        onClick={() => setPageTimeRange(link.label)}
+        activeClassName="font-bold border-b-2 border-orange-500"
+        className="font-bold h-4 text-orange-500"
         key={link.label}
         to={link.path}
       >
         {link.label}
-      </Link>
+      </div>
     );
   });
   return (
-    <div className="bg-transparent pt-3 align-middle text-sm fixed top-20 left-0 right-0 mt-6 flex justify-around h-12">
+    <div className="bg-transparent pt-3 align-middle text-xs fixed top-20 left-0 right-0 my-14 mx-4 flex justify-around h-12">
       {renderedLinks}
     </div>
   );

@@ -1,6 +1,6 @@
 import SubSideBarArtists from "../components/SubSideBarArtists";
 import ArtistCard from "../components/cards/ArtistsCard";
-import { calculateTopArtists } from "../functions/functions";
+import { calculateTopArtists, getTopArtistsLast4Weeks, getTopArtistsLast6Months, getTopArtistsLastYear } from "../functions/functions";
 import { useState } from "react";
 import { ArtistPage } from "./ArtistPage";
 import { countPlaysForArtist } from "../functions/functions";
@@ -9,8 +9,8 @@ import { getMostListenedSeasonForArtist } from "../functions/functions";
 import { calculatePercentageOfPlays } from "../functions/functions";
 import { getPositionInTop100 } from "../functions/functions";
 import { getTopSongsByArtist } from "../functions/functions";
+import { musicasDiferentesArtista } from "../functions/functions";
 import { useEffect } from "react";
-
 
 const INITIAL_TIME_FRAME = "Always";
 
@@ -19,29 +19,39 @@ function ArtistsPage(params) {
   const [songList, setSongList] = useState();
   const [selectedArtist, setSelected] = useState();
   const [timeRangeSelection, setSelection] = useState(INITIAL_TIME_FRAME);
+  const [pageTimeRangeSelection, setPageSelection] = useState("Ever Since");
   const totalMinutes = countPlaysForArtist(selectedArtist);
   const totalRecords = countRecordsListenedByArtist(selectedArtist);
   const percentage = calculatePercentageOfPlays(selectedArtist);
   const position = getPositionInTop100(selectedArtist);
   const season = getMostListenedSeasonForArtist(selectedArtist);
+  const totalDifferentSongs = musicasDiferentesArtista(selectedArtist);
 
   useEffect(() => {
-    if(selectedArtist === undefined) return
+    if (selectedArtist === undefined) return;
     setSongList(getTopSongsByArtist(selectedArtist, timeRangeSelection));
-  }, [selectedArtist, timeRangeSelection])
+  }, [selectedArtist, timeRangeSelection]);
 
-  // const getTopArtistSongs = (period) => {
-  //   setList(getTopSongsByArtist(selectedArtist, period));
-  // };
-
-
+  
+  const handleSetSelection = (newTimeRange) => {
+    setPageSelection(newTimeRange);
+    if(newTimeRange === "Ever Since") {
+      setList(calculateTopArtists())
+    } else if (newTimeRange === "Last 4 Weeks") {
+      setList(getTopArtistsLast4Weeks())
+    } else if(newTimeRange === "Last 6 Months") {
+      setList(getTopArtistsLast6Months())
+    } else if(newTimeRange === "Last Year") {
+      setList(getTopArtistsLastYear)
+    }
+  };
 
   const renderedArtistsList = artistList.map((element, i) => {
     return (
       <ArtistCard
         onSelect={() => setSelected(element[0])}
         artist={element[0]}
-        time={element[1]}
+        time={Math.round(element[1])}
         indice={i + 1}
       />
     );
@@ -50,11 +60,13 @@ function ArtistsPage(params) {
   return (
     <div className="mb-20">
       {!selectedArtist || !songList ? (
-        <>
+        <div className=" ">
           {renderedArtistsList}
-          <SubSideBarArtists />
+          <div className="mt-10">
+            <SubSideBarArtists setPageTimeRange={handleSetSelection} />
+          </div>
           <div className="text-white"></div>
-        </>
+        </div>
       ) : (
         <>
           <ArtistPage
@@ -66,9 +78,9 @@ function ArtistsPage(params) {
             totalRecords={totalRecords}
             totalMinutes={totalMinutes}
             onBack={() => setSelected(undefined)}
-            // onPeriodSelect={(period) => }
             artistName={selectedArtist}
             positionTop={position}
+            totalDifferentSongs={totalDifferentSongs}
           />
         </>
       )}

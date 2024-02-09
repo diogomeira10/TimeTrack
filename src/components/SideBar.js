@@ -10,7 +10,7 @@ function SideBar () {
 
     const renderedLinks = links.map((link) => {   
         return <Link 
-                activeClassName='font-bold border-b-2 border-orange-500 pl-2' 
+                activeClassName='font-bold border-b-2 border-orange-500' 
                 className="mb-3 mt-3" 
                 key={link.label} 
                 to={link.path}
@@ -21,9 +21,8 @@ function SideBar () {
 
     return (
         <div className="">
-            <div className='bg-slate-300 rounded font-bold fixed bottom-5 left-6 right-6 mt-6 flex justify-around align-middle h-12'>
-            {renderedLinks}
-        </div>
+            <div className='bg-neutral-600 rounded-xl font-bold fixed bottom-5 left-6 right-6 mt-6 flex justify-around align-middle h-12'>
+            {renderedLinks}</div>
         </div>
         
     )

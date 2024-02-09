@@ -16,6 +16,7 @@ export function ArtistPage({
   onBack,
   selection,
   setSelection,
+  totalDifferentSongs
 }) {
   const [listToRender, setListToRender] = useState(list);
 
@@ -53,10 +54,12 @@ export function ArtistPage({
   ));
 
   const handleSelect = (option) => {
-    setSelection(option);
+    const lowercaseOption = option.toLowerCase();
+    setSelection(lowercaseOption);
   };
+  
 
-  const options = ["Always", "4 weeks", "6 months", "last year"];
+  const options = ["Always", "4 Weeks", "6 Months", "Last Year"];
 
   return (
     <div>
@@ -68,13 +71,14 @@ export function ArtistPage({
           <div className="font-bold text-2xl">{artistName}</div>
           <div className="text-xs">{positionTop}th position</div>
           <div className="text-xs">Stream percentage: {streamPercentage}%</div>
+          <div className="text-xs">Different songs listened: {totalDifferentSongs}</div>
         </div>
       </div>
       <div className="text-black">
         <div className="ml-6 font-bold mb-4 text-2xl">Total</div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 overflow-x-scroll">
+      <div className="flex items-center justify-center gap-2 overflow-x-scroll">
         <InfoCard titulo="Total Minutes" valor={Math.round(totalMinutes)} />
         <InfoCard titulo="Total Records" valor={totalRecords} />
         <InfoCard titulo="Season of the year" valor={season} />
@@ -82,7 +86,7 @@ export function ArtistPage({
       <div className="mt-10">
         <div className="flex justify-between items-center">
           <div className="ml-6 font-bold text-2xl">Top 20 Records</div>
-          <div className="mr-4">
+          <div className="mr-6 mb-6">
             <DropDown
               value={selection}
               onChange={handleSelect}
