@@ -1,12 +1,13 @@
-import TrackCard from "../components/cards/TracksCard";
 import SubSideBarTracks from "../components/SubSideBarTracks";
+import EverSinceTracks from "./lists/EversinceTracks";
 
 function TracksPage(params) {
+  
   return (
-    <div>
+    <div className="mb-20">
       <div className="text-white">
-        <TrackCard />
         <SubSideBarTracks />
+        <EverSinceTracks />
       </div>
     </div>
   );

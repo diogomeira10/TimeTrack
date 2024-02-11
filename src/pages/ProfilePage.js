@@ -1,66 +1,44 @@
-import React from 'react';
-import {useState , useEffect} from 'react'
-import ProfileImage from '../images/IMG_2292 sihgudwuiyqef 2.png';
-import { InfoCard } from '../components/cards/InfoCard';
-import history from "../assets/data/history.json";
+import { InfoCard } from "../components/cards/InfoCard";
+import ProfilePic from "../images/pic.png";
+import { totalMinutes, totalUniqueSongs, totalPlays, maxSeason, horaMaisOuve , calculateDailyAverageListeningTime} from "../functions/functions";
+import { SearchBar } from "../components/SearchBar";
 
-function ProfilePage() {
-  const totalPlays = history.length;
 
-  const [uniqueSongsCount, setUniqueSongsCount] = useState(0);
-  const [totalMinutes, setTotalMinutes] = useState(0);
-
-  useEffect(() => {
-    const uniqueSongs = new Set();
-
-    // Iterate through history to count unique songs
-    history.forEach(item => {
-      uniqueSongs.add(item.master_metadata_track_name);
-    });
-
-    // Set the count of unique songs
-    setUniqueSongsCount(uniqueSongs.size);
-  }, []);
-  useEffect(() => {
-    // Calculate total minutes when component mounts
-    const calculateTotalMinutes = () => {
-      const total = history.reduce((accumulator, item) => accumulator + (item.ms_played / (1000 * 60)), 0); // Convert ms to minutes
-      return total;
-    };
-
-    // Set the total minutes
-    setTotalMinutes(Math.round(calculateTotalMinutes()));
-  }, []);
-
+function ProfilePage(params) {
 
 
   return (
     <div>
-      <div className="flex bg-orange-400 h-32 text-white justify-around items-center">
+      <div className="flex items-center justify-center gap-20 mb-5 h-40 bg-orange-600 text-white">
         <div>
-          <h2 className="text-lg">Pedro Pereira</h2>
-          <p className="text-xs">Média de tempo diaria: </p>
+          <div className="font-bold">Pedro Pereira</div>
+          <div className="text-xs">@pedrodspereira_</div>
         </div>
-        <div>
-          <img className="w-36" src={ProfileImage} alt="profile-pic" />
+        <img className="w-32" src={ProfilePic} alt="Profile-Pic" />
+      </div>
+
+      <div>
+        <div className="text-black">
+          <div className="ml-6 font-bold mb-4 mt-2 text-2xl">Total</div>
+        </div>
+        <div className="flex ml-6 items-center justify-center gap-4 overflow-x-scroll">
+          <InfoCard titulo="Total Plays" valor={totalPlays} />
+          <InfoCard titulo="Total Records" valor={totalUniqueSongs} />
+          <InfoCard titulo="Total Minutes" valor={Math.round(totalMinutes)}/>
         </div>
       </div>
-      <div className="mt-10">
-        <p className="font-bold text-2xl ml-4 mb-4">Total</p>
-        <div className="flex justify-around">
-          <InfoCard informacao="Total Plays" value={totalPlays}/>
-          <InfoCard informacao={"Total Records"} value={uniqueSongsCount} />
-          <InfoCard informacao="Total Minutes" value={totalMinutes} />
+
+      <div>
+        <div className="text-black mt-16">
+          <div className="ml-6 font-bold mb-4 text-2xl">Minutes</div>
+        </div>
+        <div className="flex ml-6 items-center justify-center gap-4">
+          <InfoCard titulo="Season of the year" valor={maxSeason}/>
+          <InfoCard titulo="Time of the day" valor={horaMaisOuve()}/>
+          <InfoCard titulo="Average time per day" valor={calculateDailyAverageListeningTime() + "m"} />
         </div>
       </div>
-      <div className="mt-10">
-        <p className="font-bold text-2xl ml-4 mb-4">Minutos</p>
-        <div className="flex justify-around">
-          <InfoCard informacao="Season of the year" />
-          <InfoCard informacao="Time of the day" />
-          <InfoCard informacao="" />
-        </div>
-      </div>
+      
     </div>
   );
 }

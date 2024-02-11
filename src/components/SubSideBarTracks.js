@@ -1,9 +1,7 @@
-import Link from "./Link"
+import Link from "./Links"
 
 function SubSideBarTracks(params) {
-    
-    /* const {navigate, currentPath} = useNavigationContext();
-    to={currentPath + link.path} */
+  
     const links = [
         {label: 'Ever Since', path:'/eversincetracks'},
         {label: 'Last 4 Weeks', path: '/last4weekstracks'}, 
@@ -13,16 +11,16 @@ function SubSideBarTracks(params) {
 
     const renderedLinks = links.map((link) => {   
         return <Link 
-                activeClassName='font-bold border-b-2 border-orange-500 pl-2' 
-                className="mb-20" 
+                activeClassName='font-bold border-b-2 border-orange-500' 
+                className="font-semibold h-4" 
                 key={link.label} 
-                to={link.path}
+                to={link.path} 
                 >
                         {link.label}
                 </Link>
     }) 
     return (
-        <div className='bg-slate-100 pt-3 align-middle text-sm fixed top-20 left-0 right-0 mt-6 flex justify-around h-12'>
+        <div className='bg-transparent pt-3 align-middle text-xs fixed top-20 left-0 right-0 my-14 mx-4 flex justify-around h-12'>
             {renderedLinks}
         </div>
     )

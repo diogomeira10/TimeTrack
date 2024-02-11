@@ -1,6 +1,6 @@
-export function InfoCard({informacao, value}) {
-    return <div className="flex rounded-2xl gap-8 flex-col items-center justify-center  bg-gray-500 h-32 w-32">
-        <div className='text-white text-xs'>{informacao}</div>
-        <div className='text-3xl text-white'>{value}21</div>
+export function InfoCard({titulo, valor}) {
+    return <div className="flex-shrink-0 bg-gray-400 text-center text-white w-28 h-28 flex gap-4 justify-center flex-col items-center rounded-3xl">
+        <div className="text-xs">{titulo}</div>
+        <div className="text-xl font-bold">{valor}</div>
     </div>
 }
