@@ -6,7 +6,11 @@ export function DropDown({ options, value, onChange }) {
     const divEl = useRef();
 
     const renderedOptions = options.map((option,i) => (
+<<<<<<< HEAD
         <div className='hover:bg-sky-100  rounded cursor-pointer p-1' onClick={() => handleOptionclick(option)} key={i}>
+=======
+        <div className='hover:bg-sky-100  rounded cursor-pointer p-1' onClick={() => handleOptionclick(option)} key={option}>
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
             {option}
         </div>
     ));
@@ -23,7 +27,11 @@ export function DropDown({ options, value, onChange }) {
         document.addEventListener('click', handler, true);
 
         return () => {
+<<<<<<< HEAD
         document.removeEventListener('click', handler);
+=======
+            document.removeEventListener('click', handler);
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
         };
     }, []);
 
@@ -34,7 +42,10 @@ export function DropDown({ options, value, onChange }) {
     const handleOptionclick = (option) => {
         setIsOpen(false);
         onChange(option);
+<<<<<<< HEAD
         console.log(option)
+=======
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
     };
 
     return (

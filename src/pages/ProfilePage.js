@@ -1,7 +1,11 @@
 import { InfoCard } from "../components/cards/InfoCard";
 import ProfilePic from "../images/pic.png";
 import { totalMinutes, totalUniqueSongs, totalPlays, maxSeason, horaMaisOuve , calculateDailyAverageListeningTime} from "../functions/functions";
+<<<<<<< HEAD
 import { SearchBar } from "../components/SearchBar";
+=======
+
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
 
 
 function ProfilePage(params) {

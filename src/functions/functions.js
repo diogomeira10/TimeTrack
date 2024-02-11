@@ -462,6 +462,10 @@ export function getTopSongsByArtist(artistName, timeFrame = "Always") {
     entry.master_metadata_album_artist_name === artistName &&
     (timeFrame === "Always" || new Date(entry.ts) > filterDate)
   );
+<<<<<<< HEAD
+=======
+    console.log(filteredHistory)
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
 
   filteredHistory.forEach(entry => {
     const songName = entry.master_metadata_track_name;

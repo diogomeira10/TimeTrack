@@ -4,7 +4,10 @@ import { DropDown } from "../components/Dropdown";
 import { MiniSongCard } from "../components/cards/MiniSongCard";
 import { useState, useEffect } from "react";
 import { getTopSongsByArtist } from "../functions/functions";
+<<<<<<< HEAD
 import { SearchBar } from "../components/SearchBar";
+=======
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
 
 export function ArtistPage({
   artistName,
@@ -19,10 +22,14 @@ export function ArtistPage({
   setSelection,
   totalDifferentSongs
 }) {
+<<<<<<< HEAD
 
  
   const [listToRender, setListToRender] = useState(list);
  
+=======
+  const [listToRender, setListToRender] = useState(list);
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
 
   useEffect(() => {
     let newList = list
@@ -60,10 +67,15 @@ export function ArtistPage({
   const handleSelect = (option) => {
     const lowercaseOption = option.toLowerCase();
     setSelection(lowercaseOption);
+<<<<<<< HEAD
     console.log(lowercaseOption)
     console.log(listToRender)
   };
 
+=======
+  };
+  
+>>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
 
   const options = ["Always", "4 Weeks", "6 Months", "Last Year"];
 
