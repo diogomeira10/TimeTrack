@@ -11,10 +11,9 @@ import { getPositionInTop100 } from "../functions/functions";
 import { getTopSongsByArtist } from "../functions/functions";
 import { musicasDiferentesArtista } from "../functions/functions";
 import { useEffect } from "react";
-<<<<<<< HEAD
+
 import { SearchBar } from "../components/SearchBar";
-=======
->>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
+
 
 const INITIAL_TIME_FRAME = "Always";
 
@@ -30,7 +29,7 @@ function ArtistsPage(params) {
   const position = getPositionInTop100(selectedArtist);
   const season = getMostListenedSeasonForArtist(selectedArtist);
   const totalDifferentSongs = musicasDiferentesArtista(selectedArtist);
-<<<<<<< HEAD
+
   const [term, setTerm] = useState('');
   const [showInput, setShowInput] = useState(false);
 
@@ -45,8 +44,7 @@ function ArtistsPage(params) {
     setShowInput(!showInput);
 
   };
-=======
->>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
+
 
   useEffect(() => {
     if (selectedArtist === undefined) return;
@@ -63,11 +61,11 @@ function ArtistsPage(params) {
     } else if(newTimeRange === "Last 6 Months") {
       setList(getTopArtistsLast6Months())
     } else if(newTimeRange === "Last Year") {
-<<<<<<< HEAD
+
       setList(getTopArtistsLastYear())
-=======
+
       setList(getTopArtistsLastYear)
->>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
+
     }
   };
 
@@ -84,10 +82,9 @@ function ArtistsPage(params) {
 
   return (
     <div className="mb-20">
-<<<<<<< HEAD
+
       <SearchBar input={showInput} term={term} onChange={handleChange} handleInput={handleShowInput}/>
-=======
->>>>>>> 3884673211e93c3e0c0e1358ad2e40f852dc7568
+
       {!selectedArtist || !songList ? (
         <div className=" ">
           {renderedArtistsList}
